@@ -9,7 +9,8 @@ export function BottomTabs() {
   return (
     <Tab.Navigator
       tabBarOptions={{
-        activeBackgroundColor: '#d3d3d3',
+        activeBackgroundColor: '#6DDACC',
+        style: { backgroundColor: '#252A3B' },
         tabStyle: { alignItems: 'center', justifyContent: 'center' },
       }}
     >

@@ -30,7 +30,7 @@ export function Dashboard() {
   const chunkData = chunk(sortedData, 5);
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: '#252A3B' }}>
       <View style={styles.container}>
         <Text style={styles.title}>Dashboard</Text>
         <Text style={styles.content}>
@@ -54,11 +54,12 @@ export function Dashboard() {
                 width={Dimensions.get('window').width - CHART_PADDING * 2}
                 height={220}
                 chartConfig={{
-                  backgroundGradientFrom: '#fff',
-                  backgroundGradientTo: '#fff',
+                  backgroundGradientFrom: '#252A3B',
+                  backgroundGradientTo: '#252A3B',
                   decimalPlaces: 1, // optional, defaults to 2dp
-                  color: (opacity = 1) => `rgba(232, 22, 15, ${opacity})`,
-                  labelColor: (opacity = 1) => `rgba(55, 77, 24, ${opacity})`,
+                  color: (opacity = 1) => `rgba(109, 218, 204, ${opacity})`,
+                  labelColor: (opacity = 1) =>
+                    `rgba(255, 255, 255, ${opacity})`,
                   style: {
                     borderRadius: 16,
                   },
@@ -87,6 +88,7 @@ const styles = StyleSheet.create({
     fontSize: 26,
     fontWeight: 'bold',
     paddingHorizontal: 32,
+    color: 'white',
   },
   content: {
     fontSize: 16,
@@ -97,7 +99,7 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: '#252A3B',
     paddingTop: 32,
   },
   chart: {
