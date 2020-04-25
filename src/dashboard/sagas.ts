@@ -1,11 +1,22 @@
-import { DashboardActionTypes, updateTodayDataError, updateTodayDataSuccess } from './actions';
-import { takeLatest, put } from 'redux-saga/effects';
+import {
+  DashboardActionTypes,
+  updateTodayDataError,
+  updateTodayDataSuccess,
+} from './actions';
+import { takeLatest, put, call } from 'redux-saga/effects';
+
+const DASHBOARD_DATA_SOURCE_URL =
+  'https://covid19japan.com/static/prefectures.geojson';
 
 function* updateTodayData() {
   try {
-    put(updateTodayDataSuccess());
+    const response = yield call(fetch, DASHBOARD_DATA_SOURCE_URL);
+    const data = yield response.json();
+    console.log(data);
+
+    yield put(updateTodayDataSuccess({ data }));
   } catch {
-    put(updateTodayDataError());
+    yield put(updateTodayDataError());
   }
 }
 
