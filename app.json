@@ -22,7 +22,12 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
-    }
+      "supportsTablet": true,
+      "bundleIdentifier": "tracking.covid19"
+    },
+    "android": {
+      "package": "Covid19"
+    },
+    "entryPoint": "node_modules/expo/AppEntry.js"
   }
 }
