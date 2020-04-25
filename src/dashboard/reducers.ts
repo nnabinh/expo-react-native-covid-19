@@ -2,6 +2,7 @@ import { Reducer } from 'redux';
 import flatten from 'lodash/flatten';
 import { DashboardActionTypes } from './actions';
 import { ApplicationState, ApplicationAction } from '../store';
+import moment from 'moment';
 
 type CollectionsState = {
   isFetchingTodayData: boolean;
@@ -11,6 +12,10 @@ type CollectionsState = {
     en: string;
     value: number;
   }[];
+  dailyCases: {
+    date: Date;
+    value: number;
+  }[];
   updatedAt: Date;
   error: Error | null;
 };
@@ -18,6 +23,7 @@ type CollectionsState = {
 const defaultValue: CollectionsState = {
   isFetchingTodayData: false,
   prefectures: [],
+  dailyCases: [],
   updatedAt: new Date(),
   error: null,
 };
@@ -36,6 +42,13 @@ export const dashboardReducer: Reducer<CollectionsState, ApplicationAction> = (
       return {
         ...state,
         prefectures: action.payload.data['prefectures-map'],
+        dailyCases: action.payload.data.transition.cases.map((item: any) => ({
+          date: moment(
+            `${item[0]}-${item[1]}-${item[2]}`,
+            'YYYY-MM-DD'
+          ).toDate(),
+          value: item[3],
+        })),
         updatedAt: new Date(),
         isFetchingTodayData: false,
       };

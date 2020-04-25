@@ -4,9 +4,11 @@ import { NavigationContainer } from '@react-navigation/native';
 import { BottomTabs } from './src/navigation/BottomTabs';
 import { store } from './src/store/store';
 
-if(__DEV__) {
+if (__DEV__) {
   require('./src/store/reactotron');
 }
+
+console.disableYellowBox = true;
 
 export default function App() {
   return (
