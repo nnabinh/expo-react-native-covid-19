@@ -12,9 +12,7 @@ export const updateTodayData = createAction(
 export const updateTodayDataSuccess = createAction(
   DashboardActionTypes.UPDATE_TODAY_DATA_SUCCESS
 )<{
-  data: {
-    features: any[];
-  };
+  data: any;
 }>();
 export const updateTodayDataError = createAction(
   DashboardActionTypes.UPDATE_TODAY_DATA_ERROR

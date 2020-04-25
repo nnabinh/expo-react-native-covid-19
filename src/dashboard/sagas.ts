@@ -6,14 +6,13 @@ import {
 import { takeLatest, put, call } from 'redux-saga/effects';
 
 const DASHBOARD_DATA_SOURCE_URL =
-  'https://covid19japan.com/static/prefectures.geojson';
+  'https://toyokeizai.net/sp/visual/tko/covid19/data/data.json';
 
 function* updateTodayData() {
   try {
     const response = yield call(fetch, DASHBOARD_DATA_SOURCE_URL);
     const data = yield response.json();
     console.log(data);
-
     yield put(updateTodayDataSuccess({ data }));
   } catch (error) {
     console.log(error);

@@ -11,7 +11,9 @@ import { ApplicationState } from '../store';
 
 export function Dashboard() {
   const dispatch = useDispatch();
-  const data = useSelector((state: ApplicationState) => state.dashboard.data);
+  const prefectures = useSelector(
+    (state: ApplicationState) => state.dashboard.prefectures
+  );
   const updatedAt = useSelector(
     (state: ApplicationState) => state.dashboard.updatedAt
   );
@@ -20,11 +22,9 @@ export function Dashboard() {
     dispatch(updateTodayData());
   }, []);
 
-  if (!data) return null;
-
   const sortedData = orderBy(
-    data,
-    (prefecture) => prefecture.locations.length,
+    prefectures,
+    (prefecture) => prefecture.value,
     'desc'
   );
   const chunkData = chunk(sortedData, 5);
@@ -36,46 +36,50 @@ export function Dashboard() {
         <Text style={styles.content}>
           Updated at: {moment(updatedAt).format('MMMM Do YYYY, h:mm:ss a')}
         </Text>
-        <FlatList
-          data={chunkData}
-          renderItem={({ item }) => (
-            <View style={styles.chart}>
-              <BarChart
-                data={{
-                  labels: item.map((prefecture) => prefecture.name),
-                  datasets: [
-                    {
-                      data: item
-                        .map((prefecture) => prefecture.locations.length)
-                        .slice(0, 5),
+        {!!prefectures.length && (
+          <FlatList
+            data={chunkData}
+            renderItem={({ item }) => (
+              <View style={styles.chart}>
+                <BarChart
+                  data={{
+                    labels: item.map((prefecture) => prefecture.en),
+                    datasets: [
+                      {
+                        data: item.map((prefecture) => prefecture.value),
+                      },
+                      {
+                        data: item.map((prefecture) => prefecture.value),
+                      },
+                    ],
+                  }}
+                  width={Dimensions.get('window').width - CHART_PADDING * 2}
+                  height={220}
+                  chartConfig={{
+                    backgroundGradientFrom: '#252A3B',
+                    backgroundGradientTo: '#252A3B',
+                    decimalPlaces: 1, // optional, defaults to 2dp
+                    color: (opacity = 1) => `rgba(109, 218, 204, ${opacity})`,
+                    labelColor: (opacity = 1) =>
+                      `rgba(255, 255, 255, ${opacity})`,
+                    style: {
+                      borderRadius: 16,
                     },
-                  ],
-                }}
-                width={Dimensions.get('window').width - CHART_PADDING * 2}
-                height={220}
-                chartConfig={{
-                  backgroundGradientFrom: '#252A3B',
-                  backgroundGradientTo: '#252A3B',
-                  decimalPlaces: 1, // optional, defaults to 2dp
-                  color: (opacity = 1) => `rgba(109, 218, 204, ${opacity})`,
-                  labelColor: (opacity = 1) =>
-                    `rgba(255, 255, 255, ${opacity})`,
-                  style: {
-                    borderRadius: 16,
-                  },
-                  propsForDots: {
-                    r: '6',
-                    strokeWidth: '2',
-                    stroke: '#ffa726',
-                  },
-                }}
-                yAxisLabel=""
-                yAxisSuffix=""
-              />
-            </View>
-          )}
-          keyExtractor={(item) => item[0].name}
-        />
+                    propsForDots: {
+                      r: '6',
+                      strokeWidth: '2',
+                      stroke: '#ffa726',
+                    },
+                  }}
+                  yAxisLabel=""
+                  yAxisSuffix=""
+                  fromZero
+                />
+              </View>
+            )}
+            keyExtractor={(item) => item[0].en}
+          />
+        )}
       </View>
     </SafeAreaView>
   );

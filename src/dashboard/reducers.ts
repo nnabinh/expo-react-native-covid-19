@@ -5,22 +5,19 @@ import { ApplicationState, ApplicationAction } from '../store';
 
 type CollectionsState = {
   isFetchingTodayData: boolean;
-  data: {
-    [prefecture: string]: {
-      name: string;
-      locations: {
-        latitude: number;
-        longitude: number;
-      }[];
-    };
-  } | null;
+  prefectures: {
+    code: number;
+    ja: string;
+    en: string;
+    value: number;
+  }[];
   updatedAt: Date;
   error: Error | null;
 };
 
 const defaultValue: CollectionsState = {
   isFetchingTodayData: false,
-  data: null,
+  prefectures: [],
   updatedAt: new Date(),
   error: null,
 };
@@ -36,24 +33,9 @@ export const dashboardReducer: Reducer<CollectionsState, ApplicationAction> = (
         isFetchingTodayData: true,
       };
     case DashboardActionTypes.UPDATE_TODAY_DATA_SUCCESS:
-      console.log('test: ', action.payload.data);
       return {
         ...state,
-        data: action.payload.data.features.reduce(
-          (result: any, item: any) => ({
-            ...result,
-            [item.properties.NAME_1]: {
-              name: item.properties.NAME_1,
-              locations: flatten(flatten(item.geometry.coordinates)).map(
-                (location: any) => ({
-                  latitude: location[0],
-                  longitude: location[1],
-                })
-              ),
-            },
-          }),
-          {}
-        ),
+        prefectures: action.payload.data['prefectures-map'],
         updatedAt: new Date(),
         isFetchingTodayData: false,
       };
