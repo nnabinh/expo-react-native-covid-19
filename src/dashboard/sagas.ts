@@ -15,8 +15,9 @@ function* updateTodayData() {
     console.log(data);
 
     yield put(updateTodayDataSuccess({ data }));
-  } catch {
-    yield put(updateTodayDataError());
+  } catch (error) {
+    console.log(error);
+    yield put(updateTodayDataError(error));
   }
 }
 

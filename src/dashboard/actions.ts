@@ -18,7 +18,7 @@ export const updateTodayDataSuccess = createAction(
 }>();
 export const updateTodayDataError = createAction(
   DashboardActionTypes.UPDATE_TODAY_DATA_ERROR
-)<void>();
+)<{ error: Error }>();
 
 export type DashboardActions =
   | ActionType<typeof updateTodayData>
