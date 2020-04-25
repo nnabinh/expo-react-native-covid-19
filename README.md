@@ -1,13 +1,21 @@
 ### How to run
 
-```
+- Navigate to root
+```bash
 cd expo-react-native-covid-19
+```
+
+- Run server
+```bash
 yarn start
 ```
 
-- After running yarn start, you should be able to choose running environment (ios, android web)
-
+- Run platform code
+```bash
+yarn ios
+yarn android
+```
 
 ### Last updated at
 
-<img width="250" alt="Screen Shot 2020-04-26 at 0 00 06" src="https://user-images.githubusercontent.com/10094591/80283222-f2459000-8750-11ea-832d-ec4cfaebe376.png">
+![lastUpdate](https://user-images.githubusercontent.com/10094591/80283737-fc698d80-8754-11ea-9f1c-d6bff4ed3581.gif)
